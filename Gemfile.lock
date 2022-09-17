@@ -1,0 +1,28 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bcrypt (3.1.18)
+    mustermann (2.0.2)
+      ruby2_keywords (~> 0.0.1)
+    pg (1.4.3)
+    rack (2.2.4)
+    rack-protection (2.2.2)
+      rack
+    ruby2_keywords (0.0.5)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.2)
+      tilt (~> 2.0)
+    tilt (2.0.11)
+
+PLATFORMS
+  arm64-darwin-21
+
+DEPENDENCIES
+  bcrypt
+  pg
+  sinatra
+
+BUNDLED WITH
+   2.3.21

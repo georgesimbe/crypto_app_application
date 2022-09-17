@@ -1,0 +1,37 @@
+<h1>Crypto BookMark </h1>
+
+<% if logged_in? %>
+  <h2>Hey <%= current_user['first_name'] %></h2>
+
+  <section class="controls">
+    <form action="/sessions" method="POST">
+      <input type="hidden" name="_method" value="delete">
+      <button>Logout</button>
+    </form>
+
+<a href="/coins/new">Add Coins item</a>
+<section class="coins">
+
+  <% coins.each do |coin| %>
+    <section class="coin">
+      <header>
+        <h2><%= coin['coin_code'] %></h2>
+
+        <section class="controls">
+          <a href="/coins/<%= coin['id'] %>/edit">Edit</a>
+
+          <form action="/coins/<%= coin['id'] %>" method="POST">
+            <input type="hidden" name="_method" value="delete">
+            <button>Delete</button>
+          </form>
+        </section>
+      </header>
+      <p> <%= coin['bought_date'] %></p>
+      <p> <%= coin['unit_amount'] %> </p>
+      </section>
+    <% end %>
+  </section>
+<% else %>
+  <a href="/users/new">Sign up</a>
+  <a href="/sessions/new">Login</a>
+<% end %>
