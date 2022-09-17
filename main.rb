@@ -2,6 +2,10 @@ require 'sinatra'
 require 'pg'
 require './db/db'
 require 'bcrypt'
+require "uri"
+require "json"
+require "net/http"
+require 'dotenv/load'
 
 require './controllers/coins_controller'
 require './controllers/users_controller'

@@ -1,7 +1,26 @@
 require './models/coin'
 get '/' do
     coins = run_sql("SELECT * FROM coins")
-  
+    # for i in coins
+    #     puts i
+    # end
+
+    url = URI("https://api.livecoinwatch.com/coins/single")
+
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    
+    request = Net::HTTP::Post.new(url)
+    request["content-type"] = "application/json"
+    request["x-api-key"] = ENV['COIN_API']
+    request.body = JSON.dump({
+      "currency": "USD",
+      "code": "ETH",
+      "meta": true
+    }) 
+    response = https.request(request)
+    puts response.read_body
+
     erb :'coins/index', locals: {
       coins: coins
     }
@@ -16,9 +35,10 @@ get '/' do
     bought_date = params['bought_date']
     unit_amount = params['unit_amount']
     user_number = 1 
-  
+    
+
    create_coin(coin_code,bought_date,unit_amount, user_number)
-   
+
     redirect '/'
   end
   
