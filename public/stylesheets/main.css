@@ -93,3 +93,24 @@ td {
 .coin_table td img {
     align-items: right;
 }
+
+.new_coin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.new_coin button {
+    width: 100%;
+}
+
+.new_coin button {
+    transition-duration: 0.4s;
+}
+
+.new_coin button:hover {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+}

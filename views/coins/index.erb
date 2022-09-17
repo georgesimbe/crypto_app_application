@@ -8,10 +8,10 @@
       <input type="hidden" name="_method" value="delete">
       <button>Logout</button>
     </form>
-
-<a href="/coins/new">Add Coins item</a>
+<div class="new_coin"> 
+<form action="/coins/new"><button>Add Coins item</button> </form>
+</div>
 <section class="coin_table">
-
   <table>
     <tr>
       <th colspan="2">Coin name</th>
@@ -20,18 +20,25 @@
       <th>1H</th>
       <th>24H</th>
       <th>1 Year</th>
+      <th></th>
     </tr>
 
-    <% coins[0].each do |coin| %>
-    <p><%= coin[1] %></p>
-    <tr>
-      <td><a href="/coins/<%= coin[1] %>/edit"><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></a></td>
+
+    <% coins[0].each_with_index do |coin, index  | %>
+    <tr onclick="window.location='/coins/<%= coins[2][index]%>/edit';">
+      <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
       <td><%= coin['name'] %></td>
       <td>$<%= coin['rate'] %></td>
       <td>$<%= coin['cap'] %></td>
-      <td><%= coin['delta']['hour'] %></td>
-      <td><%= coin['delta']['day'] %></td>
-      <td><%= coin['delta']['year'] %></td>
+      <td><%= coin['delta']['hour'] %>%</td>
+      <td><%= coin['delta']['day'] %>%</td>
+      <td><%= coin['delta']['year'] %>%</td>
+      <td>   
+        <form action="/coins/<%= coins[2][index] %>" method="POST">
+            <input type="hidden" name="_method" value="delete">
+           <button>Delete</button>
+          </form>
+      </td>
     </tr>
    <% end %>
   </table>

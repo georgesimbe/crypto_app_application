@@ -2,10 +2,18 @@ require './models/coin'
 get '/' do
     coins = run_sql("SELECT * FROM coins")
     coin_names_array = []
+    coin_id_array = []
     for i in coins 
       coin_names_array.push i["coin_code"]
     end 
     
+    # Get id of the code so u can edit and delete it but u need to place it in an array to parse it into the html document
+    # # coin_n_array = []
+    for i in coins 
+      coin_id_array.push i["id"]
+    end 
+    p  coin_id_array
+
     url = URI("https://api.livecoinwatch.com/coins/map")
 
     https = Net::HTTP.new(url.host, url.port)
@@ -33,7 +41,8 @@ get '/' do
     data_array = [] 
     data_array.push result 
     data_array.push session['user_id']
-    p session['user_id']
+    data_array.push coin_id_array
+
     erb :'coins/index', locals: {
       coins: data_array
     }
