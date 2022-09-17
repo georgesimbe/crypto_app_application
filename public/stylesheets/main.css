@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
     box-sizing: border-box;
     /* background-color: black; */
@@ -48,4 +50,46 @@ button {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.coin_table {
+    margin-top: 100px;
+}
+
+.coin_table table {
+    border-collapse: collapse;
+    width: 100%;
+    /* border: 1px solid #ddd; */
+}
+
+th,
+td {
+    /* border: 1px solid #ddd; */
+    padding: 8px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.coin_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.coin_table tr:hover {
+    background-color: #ddd;
+}
+
+.coin_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #04AA6D;
+    color: white;
+}
+
+.coin_table tr {
+    text-align: center;
+}
+
+.coin_table td img {
+    align-items: right;
 }

@@ -1,7 +1,7 @@
 <h1>Crypto BookMark </h1>
 
-<% if logged_in? %>
-  <h2>Hey <%= current_user['first_name'] %></h2>
+<%# <% if logged_in? %> %>
+  <%# <h2>Hey <%= current_user['first_name'] %></h2> %>
 
   <section class="controls">
     <form action="/sessions" method="POST">
@@ -10,31 +10,38 @@
     </form>
 
 <a href="/coins/new">Add Coins item</a>
-<section class="coins">
-<div class = "table">
-  <div></div>
-</div>
+<section class="coin_table">
 
-  <% coins.each do |coin| %>
-    <section class="coin">
-      <header>
-        <h2><%= coin['coin_code'] %></h2>
+  <table>
+    <tr>
+      <th colspan="2">Coin name</th>
+      <th>Price</th>
+      <th>Market Cap</th>
+      <th>1H</th>
+      <th>24H</th>
+      <th>1 Year</th>
+    </tr>
 
-        <section class="controls">
-          <a href="/coins/<%= coin['id'] %>/edit">Edit</a>
-
-          <form action="/coins/<%= coin['id'] %>" method="POST">
-            <input type="hidden" name="_method" value="delete">
-            <button>Delete</button>
-          </form>
-        </section>
-      </header>
-      <p> <%= coin['bought_date'] %></p>
-      <p> <%= coin['unit_amount'] %> </p>
-      </section>
-    <% end %>
+    <% coins[0].each do |coin| %>
+    <p><%= coin[1] %></p>
+    <tr>
+      <td><a href="/coins/<%= coin[1] %>/edit"><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></a></td>
+      <td><%= coin['name'] %></td>
+      <td>$<%= coin['rate'] %></td>
+      <td>$<%= coin['cap'] %></td>
+      <td><%= coin['delta']['hour'] %></td>
+      <td><%= coin['delta']['day'] %></td>
+      <td><%= coin['delta']['year'] %></td>
+    </tr>
+   <% end %>
+  </table>
   </section>
-<% else %>
-  <a href="/users/new">Sign up</a>
+
+
+<%# <% else %> %>
+  <%# <a href="/users/new">Sign up</a>
   <a href="/sessions/new">Login</a>
-<% end %>
+
+  
+<% end %> %>
+

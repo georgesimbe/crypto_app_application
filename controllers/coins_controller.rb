@@ -1,11 +1,12 @@
 require './models/coin'
 get '/' do
     coins = run_sql("SELECT * FROM coins")
-    # for i in coins
-    #     puts i
-    # end
-
-    url = URI("https://api.livecoinwatch.com/coins/single")
+    coin_names_array = []
+    for i in coins 
+      coin_names_array.push i["coin_code"]
+    end 
+    
+    url = URI("https://api.livecoinwatch.com/coins/map")
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
@@ -14,15 +15,27 @@ get '/' do
     request["content-type"] = "application/json"
     request["x-api-key"] = ENV['COIN_API']
     request.body = JSON.dump({
+      "codes": coin_names_array,
       "currency": "USD",
-      "code": "ETH",
+      "sort": "rank",
+      "order": "ascending",
+      "offset": 0,
+      "limit": 0,
       "meta": true
-    }) 
+    })
     response = https.request(request)
-    puts response.read_body
+    # if response.code == "400"
 
+    #     redirect '/coins/error_name'
+    # end 
+    result = JSON.parse(response.body)
+
+    data_array = [] 
+    data_array.push result 
+    data_array.push session['user_id']
+    p session['user_id']
     erb :'coins/index', locals: {
-      coins: coins
+      coins: data_array
     }
   end
   
@@ -34,10 +47,28 @@ get '/' do
     coin_code = params['coin_code']
     bought_date = params['bought_date']
     unit_amount = params['unit_amount']
-    user_number = 1 
-    
+    user_number = session['user_id']
+    url = URI("https://api.livecoinwatch.com/coins/single")
 
-   create_coin(coin_code,bought_date,unit_amount, user_number)
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    
+    request = Net::HTTP::Post.new(url)
+    request["content-type"] = "application/json"
+    request["x-api-key"] = ENV['COIN_API']
+    request.body = JSON.dump({
+      "currency": "USD",
+      "code": coin_code.upcase,
+      "meta": true
+    }) 
+    response = https.request(request)
+    if response.code == "400"
+      
+        redirect '/coins/error_name'
+    end 
+    result = JSON.parse(response.body)
+
+   create_coin(result['name'],bought_date,unit_amount, user_number)
 
     redirect '/'
   end

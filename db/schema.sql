@@ -10,13 +10,13 @@ CREATE TABLE coins(
 );
 -- Year/month/date
 INSERT INTO coins(coin_code,bought_date,unit_amount, user_number)
-VALUES('Bitcoin', '2010-08-05', 13, 1 );
+VALUES('BTC', '2010-08-05', 13, 1 );
 
 INSERT INTO coins(coin_code,bought_date,unit_amount, user_number)
-VALUES('Ethereum', '219-04-24', 100, 1 );
+VALUES('ETH', '2019-04-24', 100, 1 );
 
 INSERT INTO coins(coin_code,bought_date,unit_amount, user_number)
-VALUES('Teather', '2020-09-04', 12230, 1 );
+VALUES('USDT', '2020-09-04', 12230, 1 );
 
 INSERT INTO coins(coin_code,bought_date,unit_amount, user_number)
 VALUES('BNB', '2018-03-01', 14330, 1);
