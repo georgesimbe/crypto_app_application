@@ -1,60 +1,55 @@
 
+<% if logged_in? %>
+  <h2>Hey <%= current_user['first_name'] %></h2>
+  <h1 class='dashBoard'>Welcome to your Crypto DashBoard</h1>
+   <div class="logout">
+        <form action="/sessions" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <button>Logout</button>
+      </form>
+    </div>
+  <section class="controls">
+  <section class="coin_table">
+    <table>
+      <tr>
+        <th colspan="2">Coin name</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+        <th>1H</th>
+        <th>24H</th>
+        <th>1 Year</th>
+        <th></th>
+      </tr>
+  <% coins['api_output'].each_with_index do |coin,index | %>
+    <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
+        <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
+        <td><%= coin['name'] %></td>
+        <td>$<%= coin['rate'] %></td>
+        <td>$<%= coin['cap'] %></td>
+        <td><%= coin['delta']['hour'] %>%</td>
+        <td><%= coin['delta']['day'] %>%</td>
+        <td><%= coin['delta']['year'] %>%</td>
+        <td>   
+          <form action="/coins/<%= coins['db_output'][index]['id'] %>" method="POST">
+              <input type="hidden" name="_method" value="delete">
+            <button>Delete</button>
+            </form>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    </section>
 
-<%# <% if logged_in? %> %>
-  <%# <h2>Hey <%= current_user['first_name'] %></h2> %>
-
-<section class="controls">
-  <div class="logout">
-      <form action="/sessions" method="POST">
-      <input type="hidden" name="_method" value="delete">
-      <button>Logout</button>
-    </form>
+  <div class="new_coin"> 
+  <form action="/coins/new"><button>Add Coins item</button> </form>
   </div>
 
-<div class="new_coin"> 
-<form action="/coins/new"><button>Add Coins item</button> </form>
-</div>
-<section class="coin_table">
-  <table>
-    <tr>
-      <th colspan="2">Coin name</th>
-      <th>Price</th>
-      <th>Market Cap</th>
-      <th>1H</th>
-      <th>24H</th>
-      <th>1 Year</th>
-      <th></th>
-    </tr>
-    <% coins['api_output'].each_with_index do |coin,index | %>
+  <% else %>
+    <h1 class="logging_page_h1">Crypto Tracker</h1>
+    <section class="logging_page_buttons">
+      <a href="/users/new">Sign up</a>
+      <a href="/sessions/new">Login</a> 
+    </section>
 
-      <p><%=  %></p>
-
-
-  <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
-      <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
-      <td><%= coin['name'] %></td>
-      <td>$<%= coin['rate'] %></td>
-      <td>$<%= coin['cap'] %></td>
-      <td><%= coin['delta']['hour'] %>%</td>
-      <td><%= coin['delta']['day'] %>%</td>
-      <td><%= coin['delta']['year'] %>%</td>
-      <td>   
-        <form action="/coins/<%= coins['db_output'][index]['id'] %>" method="POST">
-            <input type="hidden" name="_method" value="delete">
-           <button>Delete</button>
-          </form>
-      </td>
-    </tr>
-   <% end %>
-  </table>
-  </section>
-
-
-
-<%# <% else %> %>
-  <%# <a href="/users/new">Sign up</a>
-  <a href="/sessions/new">Login</a>
-
-  
-<% end %> %>
+<% end %>
 

@@ -21,7 +21,7 @@ a,
 button {
     border: 1px solid black;
     padding: 0.25rem 0.5rem;
-    background-color: rgb(212, 41, 41);
+    background-color: #473EA9;
     color: white;
     font-size: 0.8rem;
     text-decoration: none;
@@ -107,6 +107,10 @@ td {
 
 .new_coin button {
     width: 100%;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
 }
 
 .new_coin button {
@@ -114,7 +118,7 @@ td {
 }
 
 .new_coin button:hover {
-    background-color: #4CAF50;
+    background-color: #8F87E8;
     /* Green */
     color: white;
 }
@@ -139,4 +143,24 @@ td {
 
 .edit_form button {
     background-color: red;
+}
+
+.dashBoard h1 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.logging_page_h1 {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.logging_page_buttons {
+    text-align: center;
+    margin-top: 10%;
+    padding: 15px;
 }

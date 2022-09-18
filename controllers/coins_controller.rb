@@ -1,4 +1,5 @@
 require './models/coin'
+
 get '/' do
     coins = run_sql("SELECT * FROM coins ORDER BY coin_code")
     coins_array = []
@@ -38,7 +39,6 @@ get '/' do
     coins_array_output['api_output'].each do |key,value|     
       coins_array_output[key] = value    
       end
-      p coins_array_output
     erb :'coins/index', locals: {
       coins: coins_array_output
     }

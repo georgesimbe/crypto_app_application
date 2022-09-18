@@ -1,3 +1,4 @@
+
 def find_user_by_email(email)
     users = run_sql("SELECT * FROM users WHERE email = $1", [email])
   
@@ -17,4 +18,6 @@ def find_user_by_email(email)
 
   def find_user_by_id(id)
     run_sql("SELECT * FROM users WHERE id = $1", [id])[0]
+# fsjlndfsd;f;sdofgh;osdhgopsdhfgp
   end
+
