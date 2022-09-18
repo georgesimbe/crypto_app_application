@@ -3,7 +3,7 @@
 <%# <% if logged_in? %> %>
   <%# <h2>Hey <%= current_user['first_name'] %></h2> %>
 
-  <section class="controls">
+<section class="controls">
   <div class="logout">
       <form action="/sessions" method="POST">
       <input type="hidden" name="_method" value="delete">
@@ -25,8 +25,12 @@
       <th>1 Year</th>
       <th></th>
     </tr>
-    <% coins[0].each_with_index do |coin, index  | %>
-    <tr onclick="window.location='/coins/<%= coins[2][index]%>/info';">
+    <% coins['api_output'].each_with_index do |coin,index | %>
+
+      <p><%=  %></p>
+
+
+  <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
       <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
       <td><%= coin['name'] %></td>
       <td>$<%= coin['rate'] %></td>
@@ -35,7 +39,7 @@
       <td><%= coin['delta']['day'] %>%</td>
       <td><%= coin['delta']['year'] %>%</td>
       <td>   
-        <form action="/coins/<%= coins[2][index] %>" method="POST">
+        <form action="/coins/<%= coins['db_output'][index]['id'] %>" method="POST">
             <input type="hidden" name="_method" value="delete">
            <button>Delete</button>
           </form>
@@ -44,6 +48,7 @@
    <% end %>
   </table>
   </section>
+
 
 
 <%# <% else %> %>

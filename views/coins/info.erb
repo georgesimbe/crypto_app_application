@@ -4,11 +4,18 @@
     <tr>
       <th>Bought Date</th>
       <th>Units Own</th>
+      <th></th>
     </tr>
     <% for coin in coins %>
     <tr onclick="window.location='/coins/<%= coin['id'] %>/edit';"> 
       <td><%= coin['bought_date']%></td>
       <td><%= coin['unit_amount']%> <%= coin['coin_code']%></td>
+      <td>   
+        <form action="/coins/<%= coin['id'] %>" method="POST">
+            <input type="hidden" name="_method" value="delete">
+           <button>Delete</button>
+          </form>
+      </td>
    <% end %>
   </table>
 

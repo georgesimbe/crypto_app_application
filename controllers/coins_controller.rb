@@ -1,21 +1,13 @@
 require './models/coin'
 get '/' do
-    coins = run_sql("SELECT * FROM coins")
-    coin_names_array = []
+    coins = run_sql("SELECT * FROM coins ORDER BY coin_code")
+    coins_array = []
+    coins_names_array = []
     coin_id_array = []
     for i in coins
-      coin_names_array.push i["coin_code"]
+      coins_names_array.push i["coin_code"]
+      coins_array.push i 
     end 
-    
-    sorted_names = coin_names_array.sort
-    # Get id of the code so u can edit and delete it but u need to place it in an array to parse it into the html document
-    # # coin_n_array = []
-    for i in coins 
-      coin_id_array.push i["id"]
-    end 
-    p  coin_id_array
-    p sorted_names
-
     url = URI("https://api.livecoinwatch.com/coins/map")
 
     https = Net::HTTP.new(url.host, url.port)
@@ -25,7 +17,7 @@ get '/' do
     request["content-type"] = "application/json"
     request["x-api-key"] = ENV['COIN_API']
     request.body = JSON.dump({
-      "codes": sorted_names,
+      "codes": coins_names_array,
       "currency": "AUD",
       "sort": "code",
       "order": "ascending",
@@ -34,21 +26,23 @@ get '/' do
       "meta": true
     })
     response = https.request(request)
-    # if response.code == "400"
-
-    #     redirect '/coins/error_name'
-    # end 
     result = JSON.parse(response.body)
+    coins_array_output = {}
+    coins_array_output.store "db_output", coins_array
 
-    data_array = [] 
-    data_array.push result 
-    data_array.push session['user_id']
-    p coin_id_array.sort
-    data_array.push coin_id_array.sort
-
+    coins_array_output['db_output'].each do |key,value|     
+      coins_array_output[key] = value    
+      end
+ 
+    coins_array_output.store "api_output", result
+    coins_array_output['api_output'].each do |key,value|     
+      coins_array_output[key] = value    
+      end
+      p coins_array_output
     erb :'coins/index', locals: {
-      coins: data_array
+      coins: coins_array_output
     }
+    
   end
   
   get '/coins/new' do
