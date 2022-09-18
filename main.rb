@@ -2,9 +2,9 @@ require 'sinatra'
 require 'pg'
 require './db/db'
 require 'bcrypt'
-require "uri"
+require 'uri'
 require 'json'
-require "net/http"
+require 'net/http'
 require 'dotenv/load'
 # require './UserAccounts.rb'
 require './controllers/coins_controller'
