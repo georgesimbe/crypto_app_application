@@ -1,16 +1,24 @@
-<h1>Edit Coin</h1>
-<form action="/coins/<%= coins['id'] %>" method="POST">
-  <input type="hidden" name="_method" value="put">
+<h1>Edit Data</h1>
 
-  <label for="">coin code: </label>
-  <input type="text" name="coin_code">
+<section class="coin_table">
+   <table>
+    <tr>
+      <th>Bought Date</th>
+      <th>Units Own</th>
+    </tr>
+    <tr> 
+      <td><%= coins['bought_date']%></td>
+      <td><%= coins['unit_amount']%></td>
+  </table>
+  </section>
+      <form action="/coins/<%= coins['id'] %>" method="POST">
+        <input type="hidden" name="_method" value="put">
 
-  <label for="">bought date: </label>
-  <input type="date" name="bought_date">
+        <label for="">bought date: </label>
+        <input type="date" name="bought_date">
 
-  <label for="">Unit Amount: </label>
-  <input type="number" name="unit_amount">
+        <label for="">Unit Amount: </label>
+        <input type="number" name="unit_amount">
 
-
-  <button>Update coin</button>
+        <button>Update coin</button>
 </form>

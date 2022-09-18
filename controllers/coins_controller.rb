@@ -82,23 +82,32 @@ get '/' do
     redirect '/'
   end
   
+  get '/coins/:id/info' do
+    id = params['id']
+    coins = run_sql("SELECT * FROM coins WHERE id = $1", [id])[0]
+    p coins['coin_code']
+    crypto_coins = run_sql("SELECT * FROM coins WHERE coin_code = $1", [coins['coin_code']])
+    erb :'coins/info', locals: {
+      coins: crypto_coins
+    }
+  end
+    
   get '/coins/:id/edit' do
     id = params['id']
     coins = run_sql("SELECT * FROM coins WHERE id = $1", [id])[0]
-  
     erb :'coins/edit', locals: {
       coins: coins
     }
   end
-  
   put '/coins/:id' do
     id = params['id']
     coin_code = params['coin_code']
     bought_date = params['bought_date']
     unit_amount = params['unit_amount']
+    user_number = session['user_id'] 
   
-    run_sql("UPDATE coins SET coin_code = $2, bought_date = $ 3, unit_amount = $4, user_number = $5 WHERE id = $1", [id,coin_code,bought_date,unit_amount, user_number])
-    redirect '/'
+    run_sql("UPDATE coins SET bought_date = $2, unit_amount = $3, user_number = $4 WHERE id = $1", [id,bought_date,unit_amount, user_number])
+    redirect "/coins/#{id}/edit"
   end
   
   delete '/coins/:id' do

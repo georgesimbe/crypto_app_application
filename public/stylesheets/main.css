@@ -59,6 +59,8 @@ button {
 .coin_table table {
     border-collapse: collapse;
     width: 100%;
+    /* border-spacing: 10px;
+    border-collapse: separate; */
     /* border: 1px solid #ddd; */
 }
 
@@ -88,6 +90,7 @@ td {
 
 .coin_table tr {
     text-align: center;
+    width: 100%;
 }
 
 .coin_table td img {
@@ -113,4 +116,9 @@ td {
     background-color: #4CAF50;
     /* Green */
     color: white;
+}
+
+.logout {
+    float: right;
+    padding-left: 10px;
 }

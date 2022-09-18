@@ -1,0 +1,16 @@
+<h1>My <%= coins[0]["coin_code"] %> </h1>
+<section class="coin_table">
+  <table>
+    <tr>
+      <th>Bought Date</th>
+      <th>Units Own</th>
+    </tr>
+    <% for coin in coins %>
+    <tr onclick="window.location='/coins/<%= coin['id'] %>/edit';"> 
+      <td><%= coin['bought_date']%></td>
+      <td><%= coin['unit_amount']%> <%= coin['coin_code']%></td>
+   <% end %>
+  </table>
+  </section>
+
+</form>

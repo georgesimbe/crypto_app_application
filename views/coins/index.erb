@@ -4,10 +4,13 @@
   <%# <h2>Hey <%= current_user['first_name'] %></h2> %>
 
   <section class="controls">
-    <form action="/sessions" method="POST">
+  <div class="logout">
+      <form action="/sessions" method="POST">
       <input type="hidden" name="_method" value="delete">
       <button>Logout</button>
     </form>
+  </div>
+
 <div class="new_coin"> 
 <form action="/coins/new"><button>Add Coins item</button> </form>
 </div>
@@ -22,10 +25,8 @@
       <th>1 Year</th>
       <th></th>
     </tr>
-
-
     <% coins[0].each_with_index do |coin, index  | %>
-    <tr onclick="window.location='/coins/<%= coins[2][index]%>/edit';">
+    <tr onclick="window.location='/coins/<%= coins[2][index]%>/info';">
       <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
       <td><%= coin['name'] %></td>
       <td>$<%= coin['rate'] %></td>
