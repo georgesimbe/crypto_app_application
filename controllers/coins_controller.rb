@@ -3,16 +3,18 @@ get '/' do
     coins = run_sql("SELECT * FROM coins")
     coin_names_array = []
     coin_id_array = []
-    for i in coins 
+    for i in coins
       coin_names_array.push i["coin_code"]
     end 
     
+    sorted_names = coin_names_array.sort
     # Get id of the code so u can edit and delete it but u need to place it in an array to parse it into the html document
     # # coin_n_array = []
     for i in coins 
       coin_id_array.push i["id"]
     end 
     p  coin_id_array
+    p sorted_names
 
     url = URI("https://api.livecoinwatch.com/coins/map")
 
@@ -23,12 +25,12 @@ get '/' do
     request["content-type"] = "application/json"
     request["x-api-key"] = ENV['COIN_API']
     request.body = JSON.dump({
-      "codes": coin_names_array,
-      "currency": "USD",
-      "sort": "rank",
+      "codes": sorted_names,
+      "currency": "AUD",
+      "sort": "code",
       "order": "ascending",
       "offset": 0,
-      "limit": 0,
+      "limit": 20,
       "meta": true
     })
     response = https.request(request)
@@ -41,7 +43,8 @@ get '/' do
     data_array = [] 
     data_array.push result 
     data_array.push session['user_id']
-    data_array.push coin_id_array
+    p coin_id_array.sort
+    data_array.push coin_id_array.sort
 
     erb :'coins/index', locals: {
       coins: data_array
@@ -77,16 +80,19 @@ get '/' do
     end 
     result = JSON.parse(response.body)
 
-   create_coin(result['name'],bought_date,unit_amount, user_number)
+   create_coin(coin_code.upcase,bought_date,unit_amount, user_number)
 
     redirect '/'
   end
   
   get '/coins/:id/info' do
     id = params['id']
-    coins = run_sql("SELECT * FROM coins WHERE id = $1", [id])[0]
-    p coins['coin_code']
-    crypto_coins = run_sql("SELECT * FROM coins WHERE coin_code = $1", [coins['coin_code']])
+    user_number = session['user_id']
+    coins = run_sql("SELECT * FROM coins WHERE id = $1", [id])
+    for i in coins 
+      p i['coin_code']
+    end
+    crypto_coins = run_sql("SELECT * FROM coins WHERE id = $1", [id])
     erb :'coins/info', locals: {
       coins: crypto_coins
     }
@@ -115,4 +121,8 @@ get '/' do
     run_sql("DELETE FROM coins WHERE id = $1", [id])
     redirect '/'
   end
-  
+
+
+  get '/coins/error_name' do
+      erb :'coins/error_name'
+  end
