@@ -2,6 +2,8 @@
 
 An app that allows you to keep track of your Crypto coins
 
+CLICK ME TO VIEW APP 
+
 ## 🚀 About Me
 Hey Everyone I'm George a Software engineering Student who created this app for my general Asssmebly project 2 
 
@@ -19,14 +21,21 @@ Learnt many lessons from this project
 ## Tech Stack
 
 **Client:** Html, Css, ruby
-**Server:** Sinatra , ruby
+
+**Server:** Sinatra , ruby PostgreSQL
 
 ## TO DO
-- Edit and delete info page
-- Delete on info page
-- Style and add more functionality on the app 
+- Add button for Edit and delete on info page 
+- Delete button on info page
+- Styles and add more functionality on the app 
+
+## Bugs to fix
+- User currently is unable to show multiple records in the info page
+- Css styling issues
+
 
 ## Extra 
 - allow all infomation about the user coins displayed on info page 
 - Comparing of coins
 - Get data of how much users coins are actually worth
+
