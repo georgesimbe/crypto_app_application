@@ -13,19 +13,24 @@
     <table>
       <tr>
         <th colspan="2">Coin name</th>
-        <th>Date</th>
-        <th></th>
-        <%# <th>1H</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+        <th>1H</th>
         <th>24H</th>
-        <th>1 Year</th> %>
+        <th>1 Year</th>
         <th></th>
       </tr>
-      <% coins['db_output'].each_with_index do |coin,index | %>
-          <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
-            <td><%= coin['coin_code'] %></td>
-            <td><%= coin['bought_date'] %></td>
-            <td><%= coin['unit_amount'] %></td>
-         <td>   
+      
+  <% coins['api_output'].each_with_index do |coin,index | %>
+    <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
+        <td><img class= "coin_images" src="<%= coin['png32'] %>" alt=""></td>
+        <td><%= coin['name'] %></td>
+        <td>$<%= coin['rate'] %></td>
+        <td>$<%= coin['cap'] %></td>
+        <td><%= coin['delta']['hour'] %>%</td>
+        <td><%= coin['delta']['day'] %>%</td>
+        <td><%= coin['delta']['year'] %>%</td>
+        <td>   
           <form action="/coins/<%= coins['db_output'][index]['id'] %>" method="POST">
               <input type="hidden" name="_method" value="delete">
             <button>Delete</button>
@@ -33,7 +38,6 @@
         </td>
       </tr>
     <% end %>
-   
     </table>
     </section>
 

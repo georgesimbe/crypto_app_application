@@ -73,6 +73,7 @@ get '/' do
         redirect '/coins/error_name'
     end 
     result = JSON.parse(response.body)
+  
 
    create_coin(coin_code.upcase,bought_date,unit_amount, user_number)
 
