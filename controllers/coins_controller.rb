@@ -44,6 +44,52 @@ get '/' do
     }
     
   end
+
+
+get '/index_with_api' do
+  coins = run_sql("SELECT * FROM coins ORDER BY coin_code")
+  coins_array = []
+  coins_names_array = []
+  coin_id_array = []
+  for i in coins
+    coins_names_array.push i["coin_code"]
+    coins_array.push i 
+  end 
+  url = URI("https://api.livecoinwatch.com/coins/map")
+
+  https = Net::HTTP.new(url.host, url.port)
+  https.use_ssl = true
+  
+  request = Net::HTTP::Post.new(url)
+  request["content-type"] = "application/json"
+  request["x-api-key"] = ENV['COIN_API']
+  request.body = JSON.dump({
+    "codes": coins_names_array,
+    "currency": "AUD",
+    "sort": "code",
+    "order": "ascending",
+    "offset": 0,
+    "limit": 20,
+    "meta": true
+  })
+  response = https.request(request)
+  result = JSON.parse(response.body)
+  coins_array_output = {}
+  coins_array_output.store "db_output", coins_array
+
+  coins_array_output['db_output'].each do |key,value|     
+    coins_array_output[key] = value    
+    end
+
+  coins_array_output.store "api_output", result
+  coins_array_output['api_output'].each do |key,value|     
+    coins_array_output[key] = value    
+    end
+  erb :'coins/index', locals: {
+    coins: coins_array_output
+  }
+  
+end
   
   get '/coins/new' do
     erb :'coins/new'

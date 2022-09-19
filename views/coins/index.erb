@@ -14,14 +14,14 @@
       <tr>
         <th colspan="2">Coin name</th>
         <th>Date</th>
-        <th></th>
+        <th>Unit owned</th>
         <%# <th>1H</th>
         <th>24H</th>
         <th>1 Year</th> %>
         <th></th>
       </tr>
       <% coins['db_output'].each_with_index do |coin,index | %>
-          <tr onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
+          <tr class="coin_table_row" onclick="window.location='/coins/<%= coins['db_output'][index]['id'] %>/info';">
             <td><%= coin['coin_code'] %></td>
             <td><%= coin['bought_date'] %></td>
             <td><%= coin['unit_amount'] %></td>
@@ -30,6 +30,9 @@
               <input type="hidden" name="_method" value="delete">
             <button>Delete</button>
             </form>
+        </td>
+        <td>
+          <a href="/coins/<%= coins['db_output'][index]['id'] %>/info">View</a>
         </td>
       </tr>
     <% end %>

@@ -5,6 +5,7 @@
       <th>Bought Date</th>
       <th>Units Own</th>
       <th></th>
+      <th></th>
     </tr>
     <% for coin in coins %>
     <tr onclick="window.location='/coins/<%= coin['id'] %>/edit';"> 
@@ -16,12 +17,15 @@
            <button>Delete</button>
           </form>
       </td>
+      <td>
+        <a href="/coins/<%= coin['id'] %>/edit">Edit Data</a>
+      </td>
    <% end %>
   </table>
 
   </section>
 
-  <section><a href="/coins/<%= coin['id'] %>/edit">Click to edit Data</a></section>
+  <section></section>
 
 
 </form>
