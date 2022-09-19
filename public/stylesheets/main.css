@@ -89,13 +89,6 @@ td {
     align-items: right;
 }
 
-.coin_table_row table tr:nth-child(even) {
-    background-color: #909090;
-}
-
-.coin_table_row table tr:hover {
-    background-color: rgb(26, 4, 4);
-}
 
 .new_coin {
     display: flex;
@@ -131,16 +124,20 @@ td {
     border-radius: 5px;
     padding: 20px;
     display: flex;
-    justify-content: center;
     font-family: 'Montserrat', sans-serif;
 }
 
 .edit_form input {
-    font-size: 15px;
+    font-size: 25px;
+    background-color: white;
+}
+
+.edit_form div {
+    display: block;
 }
 
 .edit_form button {
-    background-color: red;
+    background-color: #473EA9;
 }
 
 .dashBoard h1 {

@@ -14,11 +14,11 @@
       <tr>
         <th>Coin name</th>
         <th>Price</th>
+        <th>Rate</th>
         <th>Market Cap</th>
         <th>1H</th>
         <th>24H</th>
         <th>1 Year</th>
-        <th></th>
       </tr>
       
   <% coins['api_output'].each_with_index do |coin,index | %>
@@ -30,11 +30,8 @@
         <td><%= coin['delta']['hour'] %>%</td>
         <td><%= coin['delta']['day'] %>%</td>
         <td><%= coin['delta']['year'] %>%</td>
-        <td>   
-          <form action="/coins/<%= coins['db_output'][index]['id'] %>" method="POST">
-              <input type="hidden" name="_method" value="delete">
-            <button>Delete</button>
-            </form>
+        <td>
+          <a href="/coins/<%= coins['db_output'][index]['id'] %>/info">View</a>
         </td>
       </tr>
     <% end %>

@@ -1,5 +1,5 @@
 <h1>Edit Data</h1>
-
+<a href="/coins/<%= coins['id'] %>/info">Back</a>
 <section class="coin_table">
    <table>
     <tr>
@@ -11,16 +11,24 @@
       <td><%= coins['unit_amount']%></td>
   </table>
   </section>
-  <section class="edit_form"> 
-    <form action="/coins/<%= coins['id'] %>" method="POST">
+   <form action="/coins/<%= coins['id'] %>" method="POST">
     <input type="hidden" name="_method" value="put">
-      <br>
-    <label for="">Bought date: </label>
-    <input type="date" name="bought_date">
-     <br>
-    <label for="">Amount: </label>
-    <input type="number" name="unit_amount">
-     <br>
-    <button>Update coin</button>
+  
+      <div class="new_coin"> 
+    <section class="edit_form"> 
+    <div>
+      <label for="">Bought date: </label>
+      <input type="date" name="bought_date">
+    </div>
+    <div>
+    
+      <label for="">Amount: </label>
+      <input type="number" name="unit_amount">
+    </div>
+    <div>
+        <button>Update coin</button>
+    </div>
+  
     </form>
   </section>
+  </div>
